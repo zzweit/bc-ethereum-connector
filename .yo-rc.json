@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.bunker.app"
+    },
+    "jhipsterVersion": "5.5.0",
+    "applicationType": "microservice",
+    "baseName": "bunker",
+    "packageName": "com.bunker.app",
+    "packageFolder": "com/bunker/app",
+    "serverPort": "8082",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NWU0YWQyNGU5NGNkMTVkM2I5MjM4NzIzMzJlMzNlMTJjMmExZDc0ZjMwOGYwN2RlNDQwNTJhMGQ1NzM4NmM3YTliMTcyMTYxOWViNTFlOGYxMTU5OTNhNzc5ZGM1ODJhY2FkY2Q4YmZkNzMxZTYwMDlhMzdiM2Y2OTYyMTUyMDA=",
+    "enableTranslation": false,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
