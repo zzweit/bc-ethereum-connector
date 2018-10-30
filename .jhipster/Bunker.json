@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "bunker",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "order_id",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "unique"
+            ]
+        },
+        {
+            "fieldName": "supplying_org",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "receiving_org",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "test_results",
+            "fieldType": "String"
+        }
+    ],
+    "dto": "no",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "bunker",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "bunker"
+}
