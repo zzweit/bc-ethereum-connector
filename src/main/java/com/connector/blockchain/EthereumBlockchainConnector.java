@@ -3,6 +3,9 @@ package com.connector.blockchain;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -14,22 +17,24 @@ import org.web3j.tx.gas.DefaultGasProvider;
 
 import com.connector.blockchain.BlockchainProperties.PropertyTypes;
 import com.connector.blockchain.smartcontracts.BunkerOrderStorage;
+import com.connector.blockchain.smartcontracts.SupplyChain;
 
+// PLEASE NOTE 
 public class EthereumBlockchainConnector {
 
 //	Blockchain Required Properties
     private static BlockchainProperties blockProps = new BlockchainProperties();
     private static final String CONNECTION_URL = blockProps.getProperties(PropertyTypes.CONNECTION_URL);
     private static final String BUNKER_CONTRACT_ADDRESS = blockProps.getProperties(PropertyTypes.BUNKER_STORAGE_CONTRACT_ADDRESS);
-	
+    private static final String SUPPLY_CHAIN_CONTRACT_ADDRESS = blockProps.getProperties(PropertyTypes.SUPPLY_CHAIN_CONTRACT_ADDRESS);
+
 //  Sample Ganache Private Key   
 //  private static final String PRIVATE_KEY = "0x21116800c560d1c28690ae74958aee6f227df8873530a2f4972fe68ff455007e";
 
 //  Types of smart contracts
 	public enum ContractType {
 		BUNKER_STORAGE_CONTRACT,
-		TEST_CONTRACT1,
-		TEST_CONTRACT2
+		SUPPLY_CHAIN_CONTRACT
 	}
 	
 	private Web3j web3j;
@@ -65,11 +70,8 @@ public class EthereumBlockchainConnector {
 			case BUNKER_STORAGE_CONTRACT:
 		        contract = BunkerOrderStorage.load(BUNKER_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
 		        break;
-			case TEST_CONTRACT1:
-				// LOAD ANOTHER SMART CONTRACT
-				break;
-			case TEST_CONTRACT2:
-				// LOAD ANOTHER SMART CONTRACT
+			case SUPPLY_CHAIN_CONTRACT:
+		        contract = SupplyChain.load(SUPPLY_CHAIN_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
 				break;
 		}		
 		return contract;				
@@ -100,41 +102,47 @@ public class EthereumBlockchainConnector {
 			return false;
 		} 
 	}
-	
-/*    		#TEST#   		*/
-//	public static void main(String[] args) {
-//		System.out.println("Connection URL: " + CONNECTION_URL);
-//		System.out.println("BUNKER SMART CONTRACT ADDRESS: " + BUNKER_CONTRACT_ADDRESS);
-//
-//		EthereumBlockchainConnector test = new EthereumBlockchainConnector();
-//		System.out.println("Web3J: " + test.web3j);
-//		System.out.println("CONNECTION TEST:" + test.isConnected());
-		
-/* 		TYPECAST TO THE CONTRACT REQUIRED 		*/
-//		BunkerOrderStorage contract = (BunkerOrderStorage) test.getContract(PRIVATE_KEY, ContractType.BUNKER_STORAGE_CONTRACT);
 
-/* 		TEST CONNECTION TO BLOCKCHAIN		*/
-//		try {
-//			System.out.println(test.getWeb3ClientVersion());
-//		} catch (ConnectException e) {
-//			System.out.println("CAUGHT Connect Exception");
-//		} catch (NullPointerException e) {
-//			System.out.println("CAUGHT Null Pointer Exception");
-//		} catch (IOException e) {
-//			System.out.println("Caught IO");
-//		}
+//    		#TEST#   	
+/*
+	public static void main(String[] args) {
+		System.out.println("Connection URL: " + CONNECTION_URL);
+		System.out.println("BUNKER SMART CONTRACT ADDRESS: " + BUNKER_CONTRACT_ADDRESS);
+	    System.out.println("SUPPLY CHAIN SMART CONTRACT ADDRESS: " + SUPPLY_CHAIN_CONTRACT_ADDRESS);
+	
+		EthereumBlockchainConnector connector = new EthereumBlockchainConnector();
+		System.out.println("Web3J: " + connector.web3j);
+		System.out.println("CONNECTION TEST:" + connector.isConnected());
 		
-/* 		TEST CREATING TRANSACTION TO BLOCKCHAIN		*/
+// 		TYPECAST TO THE CONTRACT REQUIRED 		
+		BunkerOrderStorage bunkerContract = (BunkerOrderStorage) connector.getContract(PRIVATE_KEY, ContractType.BUNKER_STORAGE_CONTRACT);
+		SupplyChain supplyChainContract = (SupplyChain) connector.getContract(PRIVATE_KEY, ContractType.SUPPLY_CHAIN_CONTRACT);
+
+// 		TEST CREATING TRANSACTION TO BUNKER_ORDER_STORAGE	
 //		TransactionReceipt transactionReceipt = null;		
 //		try {
-//			transactionReceipt = contract.createBunkerOrder(BigInteger.valueOf(89), "TEST", "TEST", "A").send();
+//			transactionReceipt = bunkerContract.createBunkerOrder(BigInteger.valueOf(89), "TEST", "TEST", "A").send();
 //		} catch (Exception e) {
 //			System.out.println("MESSAGE: " + e.getMessage());
 //		}
-//    	System.out.println("Blockchain Transaction Create Receipt: " + transactionReceipt);
-//		test.disconnectFromBlockchain();
-//	}
-		
+//    	System.out.println("Blockchain Transaction Create Receipt: " + transactionReceipt); 
+
+//		TEST CREATING TRANSACTION TO SUPPLY_CHAIN 
+//		TransactionReceipt transactionReceipt = null;
+//		try {
+//			List<BigInteger> list = new ArrayList<>();
+//			transactionReceipt = supplyChainContract.updateBatch(BigInteger.valueOf(12335), BigInteger.valueOf(20), "ABC", list).send();
+
+//			Test Get
+//			System.out.println(supplyChainContract.getBatch(BigInteger.valueOf(1234)).send());
+//		} catch (Exception e) {
+//			System.out.println("MESSAGE: " + e);
+//		}
+//    	System.out.println("Blockchain Transaction Create Receipt: " + transactionReceipt); 
+
+    	connector.disconnectFromBlockchain();
+	}
+*/
 }
 		
 

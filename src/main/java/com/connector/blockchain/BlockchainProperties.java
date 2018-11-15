@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.connector.blockchain.smartcontracts.BunkerOrderStorage;
+import com.connector.blockchain.smartcontracts.SupplyChain;
+
 public class BlockchainProperties {
 	
 	public enum PropertyTypes {
 		CONNECTION_URL,
-		BUNKER_STORAGE_CONTRACT_ADDRESS
+		BUNKER_STORAGE_CONTRACT_ADDRESS,
+		SUPPLY_CHAIN_CONTRACT_ADDRESS
 	}
 	private InputStream inputStream;
 	Properties prop;
@@ -40,7 +44,10 @@ public class BlockchainProperties {
 				requiredProps = prop.getProperty("CONNECTION_URL");
 				break;
 			case BUNKER_STORAGE_CONTRACT_ADDRESS:
-				requiredProps = prop.getProperty("BUNKER_CONTRACT_ADDRESS");
+				requiredProps = BunkerOrderStorage.getAddresses();
+				break;
+			case SUPPLY_CHAIN_CONTRACT_ADDRESS:
+				requiredProps = SupplyChain.getAddresses();
 				break;
 		}
 		return requiredProps;
