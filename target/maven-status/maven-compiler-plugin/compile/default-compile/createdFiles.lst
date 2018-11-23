@@ -1,10 +1,8 @@
 com\connector\blockchain\smartcontracts\SupplyChain$12.class
 com\connector\blockchain\smartcontracts\SupplyChain$6.class
-com\connector\blockchain\smartcontracts\SupplyChain$BatchRemovedEventResponse.class
 com\connector\blockchain\smartcontracts\SupplyChain$4.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$OrderUpdatedEventResponse.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$9.class
-com\connector\blockchain\smartcontracts\SupplyChain$14.class
 com\connector\blockchain\EthereumBlockchainConnector$ContractType.class
 com\connector\blockchain\smartcontracts\SupplyChain$1.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$4.class
@@ -12,10 +10,10 @@ com\connector\blockchain\smartcontracts\BunkerOrderStorage$8.class
 com\connector\blockchain\smartcontracts\SupplyChain$8.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$1.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$3.class
+com\connector\blockchain\smartcontracts\SupplyChain$BatchCRUDEventEventResponse.class
 com\connector\blockchain\smartcontracts\SupplyChain$11.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$6.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage.class
-com\connector\blockchain\smartcontracts\SupplyChain$BatchUpdatedEventResponse.class
 com\connector\blockchain\smartcontracts\SupplyChain$3.class
 com\connector\blockchain\smartcontracts\SupplyChain.class
 com\connector\blockchain\smartcontracts\SupplyChain$5.class
@@ -25,7 +23,6 @@ com\connector\blockchain\BlockchainProperties$PropertyTypes.class
 com\connector\blockchain\BlockchainProperties.class
 com\connector\blockchain\smartcontracts\SupplyChain$2.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$2.class
-com\connector\blockchain\smartcontracts\SupplyChain$15.class
 com\connector\blockchain\smartcontracts\SupplyChain$10.class
 com\connector\blockchain\smartcontracts\SupplyChain$9.class
 com\connector\blockchain\smartcontracts\BunkerOrderStorage$7.class

@@ -2,8 +2,7 @@ pragma solidity ^0.4.23;
 
 contract SupplyChain {
 
-  event BatchUpdated(uint indexed _batchId, uint _dateUpdated, address _from, string state);
-  event BatchRemoved(uint indexed _batchId, uint _dateRemoved, address _from);
+  event BatchCRUDEvent(uint indexed _batchId, uint _dateUpdated, address _from, uint _quantity, string description, string _eventName);
 
   struct Batch {
     uint batchId;
@@ -25,19 +24,15 @@ contract SupplyChain {
     batch = Batch(_batchId, _quantity, _description, time, _sourceBatchIds);
     batchIdToBatch[_batchId] = batch;
     batchIdExist[_batchId] = true; 
-    string memory state = string(abi.encodePacked("Batch ", _batchId, " has been created at ", time));
-    emit BatchUpdated(_batchId, time, msg.sender, state);
+    emit BatchCRUDEvent(_batchId, time, msg.sender, _quantity, _description, "BatchCreated");
   }
 
   function updateBatch(uint _batchId, uint _quantity, string _description, uint[] _sourceBatchIds) external {
     require(batchIdExist[_batchId] == true);
-    uint time = now;
     batchIdToBatch[_batchId].quantity = _quantity;
     batchIdToBatch[_batchId].description = _description;
     batchIdToBatch[_batchId].sourceBatchIds = _sourceBatchIds;
-
-    string memory state = string(abi.encodePacked("Batch ", _batchId, " has been updated at ", time));
-    emit BatchUpdated(_batchId, time, msg.sender, state);
+    emit BatchCRUDEvent(_batchId, now, msg.sender, _quantity, _description, "BatchUpdated");
   }
 
   function getBatch(uint _batchId) external view returns(uint, string, uint, uint, uint[]) {
@@ -48,8 +43,9 @@ contract SupplyChain {
 
   function deleteBatch(uint _batchId) external {
     require(batchIdExist[_batchId] == true);
+    Batch memory batch = batchIdToBatch[_batchId];
     delete(batchIdToBatch[_batchId]);
     delete(batchIdExist[_batchId]);
-    emit BatchRemoved(_batchId, now, msg.sender);
+    emit BatchCRUDEvent(_batchId, now, msg.sender, batch.quantity, batch.description, "BatchRemoved");
   }
 }
