@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -17,50 +19,43 @@ import org.web3j.tx.gas.DefaultGasProvider;
 
 import com.connector.blockchain.BlockchainProperties.PropertyTypes;
 import com.connector.blockchain.smartcontracts.BunkerOrderStorage;
+import com.connector.blockchain.smartcontracts.BunkerSupplyChainTransaction;
 import com.connector.blockchain.smartcontracts.SupplyChain;
 
 // PLEASE NOTE 
 public class EthereumBlockchainConnector {
 
+    private final Logger log = LoggerFactory.getLogger(EthereumBlockchainConnector.class);
+	
 //	Blockchain Required Properties
     private static BlockchainProperties blockProps = new BlockchainProperties();
     private static final String CONNECTION_URL = blockProps.getProperties(PropertyTypes.CONNECTION_URL);
     private static final String BUNKER_CONTRACT_ADDRESS = blockProps.getProperties(PropertyTypes.BUNKER_STORAGE_CONTRACT_ADDRESS);
     private static final String SUPPLY_CHAIN_CONTRACT_ADDRESS = blockProps.getProperties(PropertyTypes.SUPPLY_CHAIN_CONTRACT_ADDRESS);
+    private static final String BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS = blockProps.getProperties(PropertyTypes.BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS);
 
 //  Sample Ganache Private Key   
-//  private static final String PRIVATE_KEY = "0x21116800c560d1c28690ae74958aee6f227df8873530a2f4972fe68ff455007e";
+    private static final String PRIVATE_KEY = "0x21116800c560d1c28690ae74958aee6f227df8873530a2f4972fe68ff455007e";
 
-//  Types of smart contracts
+//  Types of Smart Contract
 	public enum ContractType {
 		BUNKER_STORAGE_CONTRACT,
-		SUPPLY_CHAIN_CONTRACT
+		SUPPLY_CHAIN_CONTRACT,
+		BUNKER_SUPPLY_CHAIN_V1_CONTRACT
 	}
 	
 	private Web3j web3j;
-
-	public EthereumBlockchainConnector() {
+	
+	public void connect() {
 		this.web3j = Web3j.build(new HttpService(CONNECTION_URL));
 	}
 	
-	public EthereumBlockchainConnector(String connectionUrl) {
+	public void connect(String connectionUrl) {
 		this.web3j = Web3j.build(new HttpService(connectionUrl));
 	}
 	
-	public void reconnectToBlockchain() {
-		this.web3j = Web3j.build(new HttpService(CONNECTION_URL));
-	}
-	
-	public void reconnectToBlockchain(String connectionUrl) {
-		this.web3j = Web3j.build(new HttpService(connectionUrl));
-	}
-	
-	public void disconnectFromBlockchain() {
+	public void disconnect() {
 		this.web3j.shutdown();
-	}
-	
-	public Web3j getWeb3jClient() {
-		return this.web3j;
 	}
 	
 	public Contract getContract(String privateKey, ContractType contractType) {
@@ -73,9 +68,12 @@ public class EthereumBlockchainConnector {
 			case SUPPLY_CHAIN_CONTRACT:
 		        contract = SupplyChain.load(SUPPLY_CHAIN_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
 				break;
+			case BUNKER_SUPPLY_CHAIN_V1_CONTRACT:
+		        contract = BunkerSupplyChainTransaction.load(BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
+		        break;
 		}		
 		return contract;				
-	}		
+	}
 	
 	public String getWeb3ClientVersion() throws ConnectException, NullPointerException, IOException {
 				
@@ -91,7 +89,6 @@ public class EthereumBlockchainConnector {
 	}
 
 //	Unable to find a proper API method in Web3J to test connection 
-//  TODO need to re-write this portion
 	public boolean isConnected() {
 		try {
 			this.web3j.web3ClientVersion().send();

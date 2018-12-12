@@ -47,16 +47,14 @@ public class BunkerOrderStorage extends Contract {
     public static final String FUNC_GETBUNKERORDER = "getBunkerOrder";
 
     public static final Event ORDERUPDATED_EVENT = new Event("OrderUpdated", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>(true) {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}));
-    ;
-
+            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>(true) {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}));;
+    
     protected static final HashMap<String, String> _addresses;
-
+    
     public static String getAddresses() {
-		return _addresses.values().iterator().next();
-	}
-
-	static {
+  		return _addresses.values().iterator().next();
+  	}
+    static {
         _addresses = new HashMap<String, String>();
         _addresses.put("5777", "0x568d7fa1d64ed16c08017039d195a462c94c2f73");
     }

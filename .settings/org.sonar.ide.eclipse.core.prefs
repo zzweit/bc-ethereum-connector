@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 extraProperties=
-projectKey=com.ncs.blockchain.ethereum\:blockchain-ethereum-connector
+projectKey=personal.blockchain.ethereum\:blockchain-ethereum-connector
 serverUrl=https\://projectconnect.ncs.com.sg/sonar
 version=2

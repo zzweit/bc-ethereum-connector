@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import com.connector.blockchain.smartcontracts.BunkerOrderStorage;
+import com.connector.blockchain.smartcontracts.BunkerSupplyChainTransaction;
 import com.connector.blockchain.smartcontracts.SupplyChain;
 
 public class BlockchainProperties {
@@ -13,7 +14,8 @@ public class BlockchainProperties {
 	public enum PropertyTypes {
 		CONNECTION_URL,
 		BUNKER_STORAGE_CONTRACT_ADDRESS,
-		SUPPLY_CHAIN_CONTRACT_ADDRESS
+		SUPPLY_CHAIN_CONTRACT_ADDRESS,
+		BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS
 	}
 	private InputStream inputStream;
 	Properties prop;
@@ -48,6 +50,9 @@ public class BlockchainProperties {
 				break;
 			case SUPPLY_CHAIN_CONTRACT_ADDRESS:
 				requiredProps = SupplyChain.getAddresses();
+				break;
+			case BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS:
+				requiredProps = BunkerSupplyChainTransaction.getAddresses();
 				break;
 		}
 		return requiredProps;
