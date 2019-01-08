@@ -19,11 +19,11 @@ public class BlockchainProperties {
 	}
 	private InputStream inputStream;
 	Properties prop;
+	private final String propFileName = "config.properties";
 	
 	public String getProperties(PropertyTypes property) {
 		try {
 			this.prop = new Properties();
-			String propFileName = "config.properties";
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
 			if (inputStream != null) {
 				prop.load(inputStream);

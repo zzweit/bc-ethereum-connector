@@ -16,6 +16,7 @@ import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.gas.StaticGasProvider;
 
 import com.connector.blockchain.BlockchainProperties.PropertyTypes;
 import com.connector.blockchain.smartcontracts.BunkerOrderStorage;
@@ -63,13 +64,13 @@ public class EthereumBlockchainConnector {
 		Contract contract = null;
 		switch(contractType) {
 			case BUNKER_STORAGE_CONTRACT:
-		        contract = BunkerOrderStorage.load(BUNKER_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
+		        contract = BunkerOrderStorage.load(BUNKER_CONTRACT_ADDRESS, this.web3j, credentials, new StaticGasProvider(BigInteger.valueOf(0), BigInteger.valueOf(4500000)));
 		        break;
 			case SUPPLY_CHAIN_CONTRACT:
 		        contract = SupplyChain.load(SUPPLY_CHAIN_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
 				break;
 			case BUNKER_SUPPLY_CHAIN_V1_CONTRACT:
-		        contract = BunkerSupplyChainTransaction.load(BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS, this.web3j, credentials, new DefaultGasProvider());
+		        contract = BunkerSupplyChainTransaction.load(BUNKER_SUPPLY_CHAIN_V1_CONTRACT_ADDRESS, this.web3j, credentials,  new StaticGasProvider(BigInteger.valueOf(0), BigInteger.valueOf(4500000)));
 		        break;
 		}		
 		return contract;				
